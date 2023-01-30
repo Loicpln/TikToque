@@ -1,6 +1,7 @@
 package fr.isen.tiktoque
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,10 +36,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         findViewById<Button>(R.id.button).setOnClickListener {
-            val database = Firebase.database
-            val myRef = database.getReference("message")
-            myRef.setValue("Hello, World!")
+            Firebase.database.getReference("message").setValue("Hello, World!")
         }
-
     }
 }
