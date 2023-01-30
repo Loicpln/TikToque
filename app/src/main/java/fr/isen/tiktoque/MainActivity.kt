@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val value = dataSnapshot.getValue<String>()
                 Log.d(TAG, "Value is: $value")
-                findViewById<Button>(R.id.button).text = value
+                findViewById<Button>(R.id.signup).text = value
             }
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        findViewById<Button>(R.id.button).setOnClickListener {
+        findViewById<Button>(R.id.signup).setOnClickListener {
 
         }
 
