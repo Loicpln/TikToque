@@ -10,7 +10,10 @@
         android:id="@+id/text_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
         android:text="Username"
+        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +32,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="e-mail"
+        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/username" />
@@ -47,6 +52,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Password"
+        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email"/>
