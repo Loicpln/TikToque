@@ -12,6 +12,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.databinding.ActivityMainBinding
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +35,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         findViewById<Button>(R.id.button).setOnClickListener {
-
+            val database = Firebase.database
+            val myRef = database.getReference("message")
+            Log.d(TAG, "Value is")
+            myRef.setValue("Hello, World!")
         }
 
     }
