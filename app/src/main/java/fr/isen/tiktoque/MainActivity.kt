@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button).setOnClickListener {
             val database = Firebase.database
             val myRef = database.getReference("message")
-            Log.d(TAG, "Value is")
             myRef.setValue("Hello, World!")
         }
 
