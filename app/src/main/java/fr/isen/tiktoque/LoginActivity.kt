@@ -7,11 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
+
 import fr.isen.tiktoque.databinding.ActivityLoginBinding
 import fr.isen.tiktoque.model.User
 import java.io.File
@@ -27,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
+
         binding.submitButton.setOnClickListener{
             signIn(binding.email.text.toString(), binding.password.text.toString())
         }
@@ -36,12 +39,10 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
                     updateUI(user)
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
@@ -51,8 +52,8 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            // L'utilisateur est connecté, affichez les informations de l'utilisateur
-            //TODO
+            Snackbar.make(binding.root, "User connected", Snackbar.LENGTH_SHORT).show()
+            startActivity(Intent(this, FeedActivity::class.java))
         }
     }
 
