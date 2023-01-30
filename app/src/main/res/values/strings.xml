@@ -3,6 +3,6 @@
     <string name="signup">SIGNUP</string>
     <string name="login">LOGIN</string>
     <string name="desc_logo">logo FoodPin</string>
-    <string name="psswd">Password</string>
+    <string name="passwd">Password</string>
     <string name="email">Email</string>
 </resources>

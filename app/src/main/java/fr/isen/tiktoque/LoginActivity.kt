@@ -44,8 +44,7 @@ class LoginActivity : AppCompatActivity() {
                     updateUI(user)
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, "Authentication failed.", Snackbar.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }
