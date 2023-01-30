@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_username"
+        android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -28,13 +28,13 @@
         android:id="@+id/text_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Adresse e-mail"
+        android:text="e-mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_username" />
+        app:layout_constraintTop_toBottomOf="@id/username" />
 
     <EditText
-        android:id="@+id/edit_email"
+        android:id="@+id/email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -43,24 +43,24 @@
         app:layout_constraintTop_toBottomOf="@id/text_email"/>
 
     <TextView
-        android:id="@+id/text_phone"
+        android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Numéro de téléphone"
+        android:text="Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_email"/>
+        app:layout_constraintTop_toBottomOf="@id/email"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_phone"/>
+        app:layout_constraintTop_toBottomOf="@id/password"/>
 
     <Button
-        android:id="@+id/buttonSignup"
+        android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"

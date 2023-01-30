@@ -25,15 +25,13 @@ class SignUpActivity : AppCompatActivity() {
 
     }
     private fun ajoutUser() {
-        var id = 0
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("users")
         binding.submitButton.setOnClickListener {
-            val username = username.text.toString()
-            val email = email.text.toString()
-            val password = password.text.toString()
+            val username = binding.username.text.toString()
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
             val user = User(id, username, email, password, Date().toString(), Date().toString())
-            id++
             myRef.child(username).setValue(user)
         }
     }
