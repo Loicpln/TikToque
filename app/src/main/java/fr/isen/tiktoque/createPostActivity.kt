@@ -81,8 +81,6 @@ class createPostActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         val selectedImage = data?.data
         if (requestCode == 1 && resultCode == RESULT_OK && selectedImage != null) {
-
-
             val storageRef = FirebaseStorage.getInstance().reference
             val imageRef = storageRef.child("images/${UUID.randomUUID()}")
             imageRef.putFile(selectedImage).addOnSuccessListener {
