@@ -1,12 +1,14 @@
 package fr.isen.tiktoque
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import fr.isen.tiktoque.databinding.ActivityCreatePostBinding
 import fr.isen.tiktoque.model.Post
 import java.util.*
@@ -24,6 +26,10 @@ class createPostActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+
+        //Instanciation du storage firebase
+        val storage = FirebaseStorage.getInstance()
+        val storageReference = storage.reference
 
 
 
@@ -53,8 +59,15 @@ class createPostActivity : AppCompatActivity() {
             val adresse = binding.adresseRestau.text.toString()
             //recuperer le type de restaurant
             val type = binding.typeRestau.selectedItem.toString()
+
             //recuperer l'image de l'utilisateur
             val userImage = binding.imageFromGallery
+
+            /*val imageUri = Uri.parse(userImage.toString())
+            val storageRef = FirebaseStorage.getInstance().reference
+            val imageRef = storageRef.child("images/${UUID.randomUUID()}")
+            imageRef.putFile(imageUri)*/
+
             //creer un objet post
             val post = Post(userId, nomRestau, adresse, phone, postContent, type, Date().time)
             //ajouter le post a la base de donnees
