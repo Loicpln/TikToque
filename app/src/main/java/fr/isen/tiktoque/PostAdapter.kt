@@ -1,16 +1,12 @@
 package fr.isen.tiktoque
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
 import fr.isen.tiktoque.model.Restaurants
 
-class VideoAdapter(private val videos: ArrayList<Restaurants>) : RecyclerView.Adapter<VideoAdapter.ViewHolder>() {
+class PostAdapter(private val videos: ArrayList<Restaurants>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
