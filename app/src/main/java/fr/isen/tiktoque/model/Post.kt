@@ -10,6 +10,5 @@ data class Post(
     var phone: String? = "",
     var content: String? = "",
     var type: String? = "",
-    var image: ImageView? = null,
-    var date: Date? = Date(),
+    var date: Long? = 0,
 )

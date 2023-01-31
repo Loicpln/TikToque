@@ -56,7 +56,7 @@ class createPostActivity : AppCompatActivity() {
             //recuperer l'image de l'utilisateur
             val userImage = binding.imageFromGallery
             //creer un objet post
-            val post = Post(userId, nomRestau, adresse, phone, postContent, type, userImage, Date())
+            val post = Post(userId, nomRestau, adresse, phone, postContent, type, Date().time)
             //ajouter le post a la base de donnees
             myRef.child(postId!!).setValue(post)
             //ajouter le post a la liste des posts de l'utilisateur
