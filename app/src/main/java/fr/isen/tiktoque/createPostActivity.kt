@@ -1,12 +1,14 @@
 package fr.isen.tiktoque
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import fr.isen.tiktoque.databinding.ActivityCreatePostBinding
 import fr.isen.tiktoque.model.Post
 import java.util.*
@@ -25,6 +27,9 @@ class createPostActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        //Instanciation du storage firebase
+        val storage = FirebaseStorage.getInstance()
+        val storageReference = storage.reference
 
 
         auth = FirebaseAuth.getInstance()
@@ -53,8 +58,11 @@ class createPostActivity : AppCompatActivity() {
             val adresse = binding.adresseRestau.text.toString()
             //recuperer le type de restaurant
             val type = binding.typeRestau.selectedItem.toString()
+
             //recuperer l'image de l'utilisateur
             val userImage = binding.imageFromGallery
+
+
             //creer un objet post
             val post = Post(userId, nomRestau, adresse, phone, postContent, type, Date().time)
             //ajouter le post a la base de donnees
@@ -71,8 +79,18 @@ class createPostActivity : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            val selectedImage = data.data
+        val selectedImage = data?.data
+        if (requestCode == 1 && resultCode == RESULT_OK && selectedImage != null) {
+
+
+            val storageRef = FirebaseStorage.getInstance().reference
+            val imageRef = storageRef.child("images/${UUID.randomUUID()}")
+            imageRef.putFile(selectedImage).addOnSuccessListener {
+                it.uploadSessionUri.let { it1 -> imageRef.downloadUrl.addOnSuccessListener { it2 -> it2 } }
+                Snackbar.make(binding.root, "Image téléchargée", Snackbar.LENGTH_LONG).show()
+            }.addOnFailureListener {
+                Snackbar.make(binding.root, "Erreur lors du téléchargement", Snackbar.LENGTH_LONG).show()
+            }
             binding.imageFromGallery.setImageURI(selectedImage)
         }
     }
