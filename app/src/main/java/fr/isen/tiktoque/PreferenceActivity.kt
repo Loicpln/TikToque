@@ -1,8 +1,12 @@
 package fr.isen.tiktoque
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.databinding.ActivityPreferenceBinding
 
 class PreferenceActivity : AppCompatActivity() {
@@ -16,75 +20,77 @@ class PreferenceActivity : AppCompatActivity() {
         binding = ActivityPreferenceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
+
         binding.checkBoxType1.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                selectedTypes.add("Type 1")
+                selectedTypes.add("asiatique")
             } else {
-                selectedTypes.remove("Type 1")
+                selectedTypes.remove("asiatique")
             }
         }
 
         binding.checkBoxType2.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                selectedTypes.add("Type 2")
+                selectedTypes.add("espagnole")
             } else {
-                selectedTypes.remove("Type 2")
+                selectedTypes.remove("espagnole")
             }
         }
 
         binding.checkBoxType3.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                selectedTypes.add("Type 3")
+                selectedTypes.add("français")
             } else {
-                selectedTypes.remove("Type 3")
+                selectedTypes.remove("français")
             }
         }
 
         binding.checkBoxType4.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                selectedTypes.add("Type 4")
+                selectedTypes.add("indien")
             } else {
-                selectedTypes.remove("Type 4")
+                selectedTypes.remove("indien")
             }
         }
 
         binding.checkBoxType5.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                selectedTypes.add("Type 5")
+                selectedTypes.add("italien")
             } else {
-                selectedTypes.remove("Type 5")
+                selectedTypes.remove("italien")
             }
         }
 
         binding.checkBoxType6.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                selectedTypes.add("Type 6")
+                selectedTypes.add("méditerranéen")
             } else {
-                selectedTypes.remove("Type 6")
+                selectedTypes.remove("méditerranéen")
             }
         }
 
         binding.checkBoxType7.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                selectedTypes.add("Type 7")
+                selectedTypes.add("mexicain")
             } else {
-                selectedTypes.remove("Type 7")
+                selectedTypes.remove("mexicain")
             }
         }
 
         binding.checkBoxType8.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                selectedTypes.add("Type 8")
+                selectedTypes.add("thaï")
             } else {
-                selectedTypes.remove("Type 8")
+                selectedTypes.remove("thaï")
             }
         }
 
         binding.buttonSave.setOnClickListener {
-            saveToDatabase(selectedTypes)
+            /*saveToDatabase(selectedTypes)*/
+            val intent = Intent(this@PreferenceActivity, FeedActivity::class.java)
+            intent.putExtra("selectedTypes", selectedTypes.toTypedArray())
+            startActivity(intent)
         }
-    }
-    private fun saveToDatabase(selectedTypes: List<String>) {
-        // Code pour enregistrer les types de nourriture sélectionnés dans la base de données
     }
 }
