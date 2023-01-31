@@ -28,4 +28,23 @@
         <item>Gluten Free</item>
         <item>Autre</item>
     </string-array>
+
+    <string-array name="type_food">
+        <item>Fast Food</item>
+        <item>Italien</item>
+        <item>Français</item>
+        <item>Mediterranean</item>
+        <item>Turc</item>
+        <item>Mexicain</item>
+        <item>Indien</item>
+        <item>Thaï</item>
+        <item>Libanais</item>
+        <item>Brésilien</item>
+        <item>Américain</item>
+        <item>Asiatique</item>
+        <item>Végétarien</item>
+        <item>Vegan</item>
+        <item>Gluten Free</item>
+        <item>Espagnol</item>
+    </string-array>
 </resources>

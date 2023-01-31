@@ -17,7 +17,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
+    <!--<Spinner
+        android:id="@+id/typecuisine"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:entries="@array/type_food"
+        android:hint="Préférences gastronomiques"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" /> -->
+
+        <CheckBox
         android:id="@+id/checkBoxType1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,97 +117,12 @@
         android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Enregistrer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkBoxType8" />
+        <!-- app:layout_constraintTop_toBottomOf="@+id/typecuisine" /> -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!-- <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Préférences culinaires"
-        android:textAllCaps="true"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RadioGroup
-        android:id="@+id/radioGroupFoodTypes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitle">
-
-        <RadioButton
-            android:id="@+id/radioButtonType1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cuisine asiatique" />
-
-        <RadioButton
-            android:id="@+id/radioButtonType2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cuisine espagnole" />
-
-        <RadioButton
-            android:id="@+id/radioButtonType3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cuisine française" />
-
-        <RadioButton
-            android:id="@+id/radioButtonType4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cuisine indienne" />
-
-        <RadioButton
-            android:id="@+id/radioButtonType5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cuisine italienne" />
-
-        <RadioButton
-            android:id="@+id/radioButtonType6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cuisine méditerranéenne" />
-
-        <RadioButton
-            android:id="@+id/radioButtonType7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cuisine mexicaine" />
-
-        <RadioButton
-            android:id="@+id/radioButtonType8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cuisine thaïe" />
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/buttonSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enregistrer"
-        app:layout_constraintTop_toBottomOf="@id/radioGroupFoodTypes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout> -->
