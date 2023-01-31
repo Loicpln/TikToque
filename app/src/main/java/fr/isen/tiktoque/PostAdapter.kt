@@ -1,5 +1,7 @@
 package fr.isen.tiktoque
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +27,8 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
         private val description: TextView? = view.findViewById(R.id.postDescription)
 
         private val recyclerView: RecyclerView? = view.findViewById(R.id.recyclerView)
+        private val like: Button? = view.findViewById(R.id.like)
+        private val compteurLike: TextView? = view.findViewById(R.id.compteurLike)
         private val postComment: TextInputEditText? = view.findViewById(R.id.postComment)
         private val createCommentButton: Button? = view.findViewById(R.id.createCommentButton)
 
@@ -39,11 +43,32 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
             description?.text = elem.content
             recyclerView?.layoutManager = LinearLayoutManager(null)
             recyclerView?.adapter = CommentAdapter(elem.comments)
+            recyclerView?.scrollToPosition(elem.comments.size - 1)
+            if(elem.likes.users.contains(uid)) {
+                like?.background = like?.context?.getDrawable(R.drawable.favorite)
+            }else {
+                like?.background = like?.context?.getDrawable(R.drawable.favorite_border)
+            }
+
+            like?.setOnClickListener {
+                val likeDb = Firebase.database.getReference("posts/${elem.id}/likes")
+                if(elem.likes.users.contains(uid)) {
+                    likeDb.child("count").setValue(elem.likes.count - 1)
+                    likeDb.child("users").child(uid).removeValue()
+                }else {
+                    likeDb.child("count").setValue(elem.likes.count + 1)
+                    likeDb.child("users").child(uid).setValue(uid)
+                }
+
+            }
+
+            compteurLike?.text = "${elem.likes.count} likes"
+
 
             createCommentButton?.setOnClickListener {
-                if (postComment?.text != null) {
-                    val comment = Comment(uid, postComment.text.toString())
-                    Firebase.database.getReference("posts").child(elem.id!!).child("comments").push().setValue(comment)
+                if (postComment?.text.toString() != "") {
+                    val comment = Comment(uid, postComment?.text.toString())
+                    Firebase.database.getReference("posts/${elem.id}/comments").push().setValue(comment)
                 }
             }
         }

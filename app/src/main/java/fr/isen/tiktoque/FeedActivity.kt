@@ -13,6 +13,7 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.databinding.ActivityFeedBinding
 import fr.isen.tiktoque.model.Comment
+import fr.isen.tiktoque.model.Like
 import fr.isen.tiktoque.model.Post
 import kotlin.collections.ArrayList
 
@@ -31,7 +32,7 @@ class FeedActivity : AppCompatActivity() {
         Firebase.database.getReference("posts").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var posts = ArrayList<Post>()
-                snapshot.children.forEach {
+                snapshot.children.forEach { it ->
                     val post = Post(it.key!!,
                         it.child("name").getValue<String>()!!,
                         it.child("adresse").getValue<String>()!!,
@@ -40,6 +41,13 @@ class FeedActivity : AppCompatActivity() {
                         it.child("type").getValue<String>()!!,
                         it.child("date").getValue<Long>()!!,
                         null,
+                        it.child("likes").let { like ->
+                            val likes = Like(like.child("count").getValue<Int>()!!)
+                            like.child("users").children.forEach { user ->
+                                likes.users.add(user.getValue<String>()!!)
+                            }
+                            likes
+                        },
                         it.child("comments").let { comments ->
                             val commentsList = ArrayList<Comment>()
                             comments.children.forEach { comment ->

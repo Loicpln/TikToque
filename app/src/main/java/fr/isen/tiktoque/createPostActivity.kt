@@ -9,6 +9,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import fr.isen.tiktoque.databinding.ActivityCreatePostBinding
+import fr.isen.tiktoque.model.Like
 import fr.isen.tiktoque.model.Post
 import java.util.*
 
@@ -63,7 +64,7 @@ class createPostActivity : AppCompatActivity() {
 
 
             //creer un objet post
-            val post = Post(userId, nomRestau, adresse, phone, postContent, type, Date().time)
+            val post = Post(userId, nomRestau, adresse, phone, postContent, type, Date().time, null, Like(), ArrayList())
             //ajouter le post a la base de donnees
             myRef.child(postId!!).setValue(post)
             //ajouter le post a la liste des posts de l'utilisateur
