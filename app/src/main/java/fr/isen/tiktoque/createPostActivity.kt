@@ -46,15 +46,18 @@ class createPostActivity : AppCompatActivity() {
         val userImage = binding.choisirPhoto.text.toString()
         //creer un objet post
         val post = Post(userId, nomRestau, adresse, phone, postContent, userImage, Date())
-        //ajouter le post a la base de donnees
-        myRef.child(postId!!).setValue(post)
 
-        //ajouter le post a la liste des posts de l'utilisateur
-        val userRef = database.getReference("users").child(userId!!)
-        userRef.child("posts").child(postId).setValue(post)
 
-        //ajouter le post a la liste des posts de la timeline
-        val timelineRef = database.getReference("timeline")
-        timelineRef.child(postId).setValue(post)
+        binding.publish.setOnClickListener {
+            //ajouter le post a la base de donnees
+            myRef.child(postId!!).setValue(post)
+            //ajouter le post a la liste des posts de l'utilisateur
+            val userRef = database.getReference("users").child(userId!!)
+            userRef.child("posts").child(postId).setValue(post)
+            //ajouter le post a la liste des posts de la timeline
+            val timelineRef = database.getReference("timeline")
+            timelineRef.child(postId).setValue(post)
+        }
+
     }
 }
