@@ -12,6 +12,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.databinding.ActivityFeedBinding
+import fr.isen.tiktoque.model.Comment
 import fr.isen.tiktoque.model.Post
 import kotlin.collections.ArrayList
 
@@ -37,10 +38,20 @@ class FeedActivity : AppCompatActivity() {
                         it.child("phone").getValue<String>()!!,
                         it.child("content").getValue<String>()!!,
                         it.child("type").getValue<String>()!!,
-                        it.child("date").getValue<Long>()!!)
+                        it.child("date").getValue<Long>()!!,
+                        null,
+                        it.child("comments").let { comments ->
+                            val commentsList = ArrayList<Comment>()
+                            comments.children.forEach { comment ->
+                                commentsList.add(Comment(comment.child("name").getValue<String>()!!,
+                                    comment.child("content").getValue<String>()!!))
+                            }
+                            commentsList
+                        }
+                    )
                     posts.add(post)
                 }
-                binding.postList.adapter = PostAdapter(ArrayList(posts.reversed()))
+                binding.postList.adapter = PostAdapter(ArrayList(posts.reversed()), auth.currentUser?.uid!!)
             }
 
             override fun onCancelled(error: DatabaseError) {
