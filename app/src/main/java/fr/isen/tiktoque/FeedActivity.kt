@@ -1,5 +1,6 @@
 package fr.isen.tiktoque
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
@@ -39,6 +40,11 @@ class FeedActivity : AppCompatActivity() {
 
             }
         })
+
+        binding.createPostButton.setOnClickListener {
+            val intent = Intent(this, createPostActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
