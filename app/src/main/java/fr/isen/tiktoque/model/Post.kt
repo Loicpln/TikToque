@@ -2,6 +2,7 @@ package fr.isen.tiktoque.model
 
 import android.widget.ImageView
 import java.util.*
+import kotlin.collections.ArrayList
 
 data class Post(
     var id : String? = "",
@@ -11,4 +12,5 @@ data class Post(
     var content: String? = "",
     var type: String? = "",
     var date: Long? = 0,
+    var comments: ArrayList<String>? = ArrayList()
 )

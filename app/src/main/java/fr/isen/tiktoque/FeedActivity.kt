@@ -3,7 +3,6 @@ package fr.isen.tiktoque
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -41,14 +40,13 @@ class FeedActivity : AppCompatActivity() {
                         it.child("date").getValue<Long>()!!)
                     posts.add(post)
                 }
-                binding.postList.adapter = PostAdapter(posts)
+                binding.postList.adapter = PostAdapter(ArrayList(posts.reversed()))
             }
 
             override fun onCancelled(error: DatabaseError) {
 
             }
         })
-
         binding.createPostButton.setOnClickListener {
             val intent = Intent(this, createPostActivity::class.java)
             startActivity(intent)
