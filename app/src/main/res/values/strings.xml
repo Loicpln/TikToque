@@ -5,4 +5,27 @@
     <string name="desc_logo">logo FoodPin</string>
     <string name="passwd">Password</string>
     <string name="email">Email</string>
+    <string-array name="type_restau">
+        <item>Fast Food</item>
+        <item>Pizza</item>
+        <item>Salade</item>
+        <item>Familiale</item>
+        <item>Mediterranean</item>
+        <item>Kebab</item>
+        <item>Tacos</item>
+        <item>Snack</item>
+        <item>Chinois</item>
+        <item>Italien</item>
+        <item>Indien</item>
+        <item>Thaï</item>
+        <item>Libanais</item>
+        <item>Brésilien</item>
+        <item>Américain</item>
+        <item>Asiatique</item>
+        <item>Halal</item>
+        <item>Végétarien</item>
+        <item>Vegan</item>
+        <item>Gluten Free</item>
+        <item>Autre</item>
+    </string-array>
 </resources>
