@@ -1,7 +1,9 @@
 package fr.isen.tiktoque
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -30,6 +32,10 @@ class createPostActivity : AppCompatActivity() {
         val myRef = database.getReference("posts")
 
 
+        binding.choisirPhoto.setOnClickListener {
+            val intent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(intent, 1)
+        }
 
 
         binding.publish.setOnClickListener {
@@ -45,9 +51,10 @@ class createPostActivity : AppCompatActivity() {
             val phone = binding.numeroRestau.text.toString()
             //recuperer l'adresse de l'utilisateur
             val adresse = binding.adresseRestau.text.toString()
+            //recuperer le type de restaurant
             val type = binding.typeRestau.selectedItem.toString()
             //recuperer l'image de l'utilisateur
-            val userImage = binding.choisirPhoto.text.toString()
+            val userImage = binding.imageFromGallery
             //creer un objet post
             val post = Post(userId, nomRestau, adresse, phone, postContent, type, userImage, Date())
             //ajouter le post a la base de donnees
@@ -58,7 +65,15 @@ class createPostActivity : AppCompatActivity() {
             //ajouter le post a la liste des posts de la timeline
             val timelineRef = database.getReference("timeline")
             timelineRef.child(postId).setValue(post)
+            Snackbar.make(binding.root, "Post publié", Snackbar.LENGTH_LONG).show()
         }
 
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            val selectedImage = data.data
+            binding.imageFromGallery.setImageURI(selectedImage)
+        }
     }
 }
