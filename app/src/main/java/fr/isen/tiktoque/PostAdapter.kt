@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import fr.isen.tiktoque.model.Restaurants
+import fr.isen.tiktoque.model.Post
 
-class PostAdapter(private val videos: ArrayList<Restaurants>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(private val videos: ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(elem: Restaurants) {
+        fun bind(elem: Post) {
         }
     }
 

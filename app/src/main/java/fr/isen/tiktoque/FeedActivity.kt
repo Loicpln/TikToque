@@ -3,10 +3,13 @@ package fr.isen.tiktoque
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.databinding.ActivityFeedBinding
-import fr.isen.tiktoque.model.Restaurants
+import fr.isen.tiktoque.model.Post
 
 class FeedActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFeedBinding
@@ -20,10 +23,22 @@ class FeedActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         auth.currentUser
 
-        Firebase.database.reference.child("restaurants").get().addOnSuccessListener {
-            val restaurants = it.children.map { e -> e.getValue(Post::class.java) }
-            binding.feed.adapter = PostAdapter(restaurants as ArrayList<Post>)
-        }
+        Firebase.database.getReference("posts").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val posts = ArrayList<Post>()
+                snapshot.children.forEach {
+                    val post = it.getValue(Post::class.java)
+                    if (post != null) {
+                        posts.add(post)
+                    }
+                }
+                binding.postList.adapter = PostAdapter(posts)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
 
 
     }
