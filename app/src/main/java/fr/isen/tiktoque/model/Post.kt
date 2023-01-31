@@ -3,11 +3,12 @@ package fr.isen.tiktoque.model
 import java.util.*
 
 data class Post(
-    val id : String? = "",
-    val name: String = "",
-    val adresse: String = "",
-    val phone: String = "",
-    val content: String = "",
-    val image: String = "",
-    val date: Date = Date(),
+    var id : String? = "",
+    var name: String = "",
+    var adresse: String = "",
+    var phone: String = "",
+    var content: String = "",
+    var type: String = "",
+    var image: String = "",
+    var date: Date = Date(),
 )

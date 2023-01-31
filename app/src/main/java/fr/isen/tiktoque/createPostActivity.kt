@@ -28,27 +28,28 @@ class createPostActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         val database = Firebase.database
         val myRef = database.getReference("posts")
-        myRef.setValue("Hello, World!")
 
-        //generer un post avec un id unique
-        val postId = myRef.push().key
-        //recuperer l'id de l'utilisateur
-        val userId = auth.currentUser?.uid
-        //recuperer le contenu du post
-        val postContent = binding.post.text.toString()
-        //recuperer le nom de l'utilisateur
-        val nomRestau = binding.nomRestau.text.toString()
-        //recuperer le numero de l'utilisateur
-        val phone = binding.numeroRestau.text.toString()
-        //recuperer l'adresse de l'utilisateur
-        val adresse = binding.adresseRestau.text.toString()
-        //recuperer l'image de l'utilisateur
-        val userImage = binding.choisirPhoto.text.toString()
-        //creer un objet post
-        val post = Post(userId, nomRestau, adresse, phone, postContent, userImage, Date())
+
 
 
         binding.publish.setOnClickListener {
+            //generer un post avec un id unique
+            val postId = myRef.push().key
+            //recuperer l'id de l'utilisateur
+            val userId = auth.currentUser?.uid
+            //recuperer le contenu du post
+            val postContent = binding.post.text.toString()
+            //recuperer le nom de l'utilisateur
+            val nomRestau = binding.nomRestau.text.toString()
+            //recuperer le numero de l'utilisateur
+            val phone = binding.numeroRestau.text.toString()
+            //recuperer l'adresse de l'utilisateur
+            val adresse = binding.adresseRestau.text.toString()
+            val type = binding.typeRestau.selectedItem.toString()
+            //recuperer l'image de l'utilisateur
+            val userImage = binding.choisirPhoto.text.toString()
+            //creer un objet post
+            val post = Post(userId, nomRestau, adresse, phone, postContent, type, userImage, Date())
             //ajouter le post a la base de donnees
             myRef.child(postId!!).setValue(post)
             //ajouter le post a la liste des posts de l'utilisateur
