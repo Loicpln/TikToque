@@ -21,8 +21,8 @@ class FeedActivity : AppCompatActivity() {
         auth.currentUser
 
         Firebase.database.reference.child("restaurants").get().addOnSuccessListener {
-            val restaurants = it.children.map { e -> e.getValue(Restaurants::class.java) }
-            binding.feed.adapter = PostAdapter(restaurants as ArrayList<Restaurants>)
+            val restaurants = it.children.map { e -> e.getValue(Post::class.java) }
+            binding.feed.adapter = PostAdapter(restaurants as ArrayList<Post>)
         }
 
 
