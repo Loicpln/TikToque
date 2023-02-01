@@ -64,7 +64,7 @@ class createPostActivity : AppCompatActivity() {
 
 
             //creer un objet post
-            val post = Post(userId, nomRestau, adresse, phone, postContent, type, Date().time, null, Like(), ArrayList())
+            val post = Post(postId, userId, nomRestau, adresse, phone, postContent, type, Date().time, null, Like(), ArrayList())
             //ajouter le post a la base de donnees
             myRef.child(postId!!).setValue(post)
             //ajouter le post a la liste des posts de l'utilisateur

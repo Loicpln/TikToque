@@ -33,7 +33,8 @@ class FeedActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var posts = ArrayList<Post>()
                 snapshot.children.forEach {
-                    val post = Post(it.child("id").getValue<String>()!!,
+                    val post = Post(it.key!!,
+                        it.child("posterId").getValue<String>()!!,
                         it.child("name").getValue<String>()!!,
                         it.child("adresse").getValue<String>()!!,
                         it.child("phone").getValue<String>()!!,

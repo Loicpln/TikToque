@@ -35,7 +35,7 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
         private val createCommentButton: Button? = view.findViewById(R.id.createCommentButton)
 
         fun bind(elem: Post, uid: String) {
-            Firebase.database.getReference("users/${elem.id}/username").get().addOnSuccessListener {
+            Firebase.database.getReference("users/${elem.posterId}/username").get().addOnSuccessListener {
                 owner?.text = it.getValue<String>()
             }
             if (elem.image != null) {
