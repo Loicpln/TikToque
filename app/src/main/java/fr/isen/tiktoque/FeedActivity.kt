@@ -32,8 +32,8 @@ class FeedActivity : AppCompatActivity() {
         Firebase.database.getReference("posts").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var posts = ArrayList<Post>()
-                snapshot.children.forEach { it ->
-                    val post = Post(it.key!!,
+                snapshot.children.forEach {
+                    val post = Post(it.child("id").getValue<String>()!!,
                         it.child("name").getValue<String>()!!,
                         it.child("adresse").getValue<String>()!!,
                         it.child("phone").getValue<String>()!!,
@@ -51,7 +51,8 @@ class FeedActivity : AppCompatActivity() {
                         it.child("comments").let { comments ->
                             val commentsList = ArrayList<Comment>()
                             comments.children.forEach { comment ->
-                                commentsList.add(Comment(comment.child("name").getValue<String>()!!,
+                                commentsList.add(Comment(
+                                    comment.child("uid").getValue<String>()!!,
                                     comment.child("content").getValue<String>()!!))
                             }
                             commentsList

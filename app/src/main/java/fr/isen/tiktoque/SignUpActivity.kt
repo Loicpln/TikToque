@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.databinding.ActivitySignUpBinding
 import fr.isen.tiktoque.model.User
@@ -52,6 +53,7 @@ class SignUpActivity : AppCompatActivity() {
     }
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
+            Firebase.database.getReference("users").child(user.uid).setValue(User(binding.username.text.toString()))
             Snackbar.make(binding.root, "User created", Snackbar.LENGTH_SHORT).show()
         }
     }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.model.Comment
 import fr.isen.tiktoque.model.Post
@@ -19,6 +20,7 @@ import fr.isen.tiktoque.model.Post
 class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val owner: TextView? = view.findViewById(R.id.owner)
         private val image: ImageView? = view.findViewById(R.id.postImage)
         private val title: TextView? = view.findViewById(R.id.postTitle)
         private val adresse: TextView? = view.findViewById(R.id.postAdresse)
@@ -33,6 +35,9 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
         private val createCommentButton: Button? = view.findViewById(R.id.createCommentButton)
 
         fun bind(elem: Post, uid: String) {
+            Firebase.database.getReference("users/${elem.id}/username").get().addOnSuccessListener {
+                owner?.text = it.getValue<String>()
+            }
             if (elem.image != null) {
                 image?.setImageResource(elem.image.hashCode())
             }
@@ -41,9 +46,11 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
             phone?.text = elem.phone
             type?.text = elem.type
             description?.text = elem.content
+
             recyclerView?.layoutManager = LinearLayoutManager(null)
             recyclerView?.adapter = CommentAdapter(elem.comments)
             recyclerView?.scrollToPosition(elem.comments.size - 1)
+
             if(elem.likes.users.contains(uid)) {
                 like?.background = like?.context?.getDrawable(R.drawable.favorite)
             }else {

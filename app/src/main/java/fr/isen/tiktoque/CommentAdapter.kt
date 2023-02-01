@@ -5,6 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.model.Comment
 
 class CommentAdapter(private val comments: ArrayList<Comment>) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
@@ -14,7 +17,9 @@ class CommentAdapter(private val comments: ArrayList<Comment>) : RecyclerView.Ad
         private val content: TextView? = view.findViewById(R.id.content)
 
         fun bind(elem: Comment) {
-            name?.text = elem.name
+            Firebase.database.getReference("users/${elem.uid}/username").get().addOnSuccessListener {
+                name?.text = it.getValue<String>()
+            }
             content?.text = elem.content
         }
     }
