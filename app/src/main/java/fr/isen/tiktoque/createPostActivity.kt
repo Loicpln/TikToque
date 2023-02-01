@@ -38,7 +38,8 @@ class createPostActivity : AppCompatActivity() {
 
 
         binding.choisirPhoto.setOnClickListener {
-            val intent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
             startActivityForResult(intent, 1)
         }
 
