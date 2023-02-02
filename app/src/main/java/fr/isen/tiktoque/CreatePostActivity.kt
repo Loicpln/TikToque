@@ -63,18 +63,30 @@ class CreatePostActivity : AppCompatActivity() {
             //recuperer le type de restaurant
             val type = binding.typeRestau.selectedItem.toString()
 
-
-            //creer un objet post
-            val post = Post(postId, userId, nomRestau, adresse, phone, postContent, type, Date().time, uuidPhoto, Like(), ArrayList())
-            //ajouter le post a la base de donnees
-            myRef.child(postId!!).setValue(post)
-            //ajouter le post a la liste des posts de l'utilisateur
-            val userRef = database.getReference("users").child(userId!!)
-            userRef.child("posts").child(postId).setValue(post)
-            //ajouter le post a la liste des posts de la timeline
-            val timelineRef = database.getReference("timeline")
-            timelineRef.child(postId).setValue(post)
-            Snackbar.make(binding.root, "Post publié", Snackbar.LENGTH_LONG).show()
+            if (userId != null) {
+                if (postContent.isNotEmpty() && nomRestau.isNotEmpty() && phone.isNotEmpty() && adresse.isNotEmpty() && type.isNotEmpty() && ::uuidPhoto.isInitialized) {
+                    val post = Post(
+                        postId,
+                        userId,
+                        nomRestau,
+                        adresse,
+                        phone,
+                        postContent,
+                        type,
+                        Date().time,
+                        uuidPhoto,
+                        Like(0),
+                        ArrayList()
+                    )
+                    myRef.child(postId).setValue(post)
+                    val userRef = database.getReference("users").child(userId!!)
+                    userRef.child("posts").child(postId).setValue(post)
+                    Snackbar.make(binding.root, "Post publié", Snackbar.LENGTH_LONG).show()
+                    finish()
+                } else {
+                    Snackbar.make(binding.root, "Veuillez remplir tous les champs", Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
 
     }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -32,17 +33,16 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
         private val phone: TextView? = view.findViewById(R.id.postTelephone)
         private val type: TextView? = view.findViewById(R.id.postType)
         private val description: TextView? = view.findViewById(R.id.postDescription)
-
         private val recyclerView: RecyclerView? = view.findViewById(R.id.recyclerView)
         private val like: Button? = view.findViewById(R.id.like)
         private val compteurLike: TextView? = view.findViewById(R.id.compteurLike)
         private val postComment: TextInputEditText? = view.findViewById(R.id.postComment)
         private val createCommentButton: Button? = view.findViewById(R.id.createCommentButton)
 
+        @SuppressLint("ClickableViewAccessibility")
         fun bind(elem: Post, uid: String) {
-            val storage = FirebaseStorage.getInstance().reference.child("images/${elem.image}")
             val localFile = File.createTempFile("images", "jpg")
-            storage.getFile(localFile).addOnSuccessListener {
+            FirebaseStorage.getInstance().reference.child("images/${elem.image}").getFile(localFile).addOnSuccessListener {
                 Picasso.get().load(localFile).into(image)
             }
             title?.text = elem.name
@@ -54,7 +54,18 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
             recyclerView?.layoutManager = LinearLayoutManager(null)
             recyclerView?.adapter = CommentAdapter(elem.comments)
             recyclerView?.scrollToPosition(elem.comments.size - 1)
-
+            recyclerView?.setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        v.parent.requestDisallowInterceptTouchEvent(true)
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        v.parent.requestDisallowInterceptTouchEvent(false)
+                    }
+                }
+                v.onTouchEvent(event)
+                true
+            }
 
             compteurLike?.text = "${elem.likes.count} likes"
             val likeDb = Firebase.database.getReference("posts/${elem.id}/likes")
@@ -94,6 +105,4 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(posts[position], uid)
     }
-
-
 }

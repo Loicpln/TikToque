@@ -31,7 +31,7 @@ class FeedActivity : AppCompatActivity() {
 
         Firebase.database.getReference("posts").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var posts = ArrayList<Post>()
+                val posts = ArrayList<Post>()
                 snapshot.children.forEach {
                     val post = Post(it.key!!,
                         it.child("posterId").getValue<String>()!!,
