@@ -53,7 +53,7 @@ class FeedActivity : AppCompatActivity() {
                             val commentsList = ArrayList<Comment>()
                             comments.children.forEach { comment ->
                                 commentsList.add(Comment(
-                                    comment.child("uid").getValue<String>()!!,
+                                    comment.child("name").getValue<String>()!!,
                                     comment.child("content").getValue<String>()!!))
                             }
                             commentsList

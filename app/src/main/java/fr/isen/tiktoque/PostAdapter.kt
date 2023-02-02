@@ -25,7 +25,7 @@ import java.io.File
 
 class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
-    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView? = view.findViewById(R.id.postImage)
         private val title: TextView? = view.findViewById(R.id.postTitle)
         private val adresse: TextView? = view.findViewById(R.id.postAdresse)
@@ -55,31 +55,31 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
             recyclerView?.adapter = CommentAdapter(elem.comments)
             recyclerView?.scrollToPosition(elem.comments.size - 1)
 
+
+            compteurLike?.text = "${elem.likes.count} likes"
+            val likeDb = Firebase.database.getReference("posts/${elem.id}/likes")
             if(elem.likes.users.contains(uid)) {
                 like?.background = like?.context?.getDrawable(R.drawable.favorite)
-            }else {
-                like?.background = like?.context?.getDrawable(R.drawable.favorite_border)
-            }
-
-            like?.setOnClickListener {
-                val likeDb = Firebase.database.getReference("posts/${elem.id}/likes")
-                if(elem.likes.users.contains(uid)) {
+                like?.setOnClickListener {
                     likeDb.child("count").setValue(elem.likes.count - 1)
                     likeDb.child("users").child(uid).removeValue()
-                }else {
+                }
+            }else {
+                like?.background = like?.context?.getDrawable(R.drawable.favorite_border)
+                like?.setOnClickListener {
                     likeDb.child("count").setValue(elem.likes.count + 1)
                     likeDb.child("users").child(uid).setValue(uid)
                 }
-
             }
-
-            compteurLike?.text = "${elem.likes.count} likes"
-
 
             createCommentButton?.setOnClickListener {
                 if (postComment?.text.toString() != "") {
-                    val comment = Comment(uid, postComment?.text.toString())
-                    Firebase.database.getReference("posts/${elem.id}/comments").push().setValue(comment)
+                    Firebase.database.getReference("users/${uid}/username").get().addOnSuccessListener {
+                        it.getValue<String>()?.let { username ->
+                            val comment = Comment(username, postComment?.text.toString())
+                            Firebase.database.getReference("posts/${elem.id}/comments").push().setValue(comment)
+                        }
+                    }
                 }
             }
         }

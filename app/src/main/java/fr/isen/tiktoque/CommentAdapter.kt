@@ -17,9 +17,7 @@ class CommentAdapter(private val comments: ArrayList<Comment>) : RecyclerView.Ad
         private val content: TextView? = view.findViewById(R.id.content)
 
         fun bind(elem: Comment) {
-            Firebase.database.getReference("users/${elem.uid}/username").get().addOnSuccessListener {
-                name?.text = it.getValue<String>()
-            }
+            name?.text = elem.name
             content?.text = elem.content
         }
     }
