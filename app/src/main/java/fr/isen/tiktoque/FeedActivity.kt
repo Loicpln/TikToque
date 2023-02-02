@@ -41,7 +41,7 @@ class FeedActivity : AppCompatActivity() {
                         it.child("content").getValue<String>()!!,
                         it.child("type").getValue<String>()!!,
                         it.child("date").getValue<Long>()!!,
-                        null,
+                        it.child("image").getValue<String>()!!,
                         it.child("likes").let { like ->
                             val likes = Like(like.child("count").getValue<Int>()!!)
                             like.child("users").children.forEach { user ->
@@ -61,7 +61,9 @@ class FeedActivity : AppCompatActivity() {
                     )
                     posts.add(post)
                 }
-                binding.postList.adapter = PostAdapter(ArrayList(posts.reversed()), auth.currentUser?.uid!!)
+                if (posts.size > 0) {
+                    binding.postList.adapter = PostAdapter(ArrayList(posts.reversed()), auth.currentUser?.uid!!)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -69,7 +71,7 @@ class FeedActivity : AppCompatActivity() {
             }
         })
         binding.createPostButton.setOnClickListener {
-            val intent = Intent(this, createPostActivity::class.java)
+            val intent = Intent(this, CreatePostActivity::class.java)
             startActivity(intent)
         }
 

@@ -12,7 +12,7 @@ data class Post(
     var content: String = "",
     var type: String = "",
     var date: Long = 0,
-    var image: Image? = null,
+    var image: String = "",
     var likes: Like = Like(),
     var comments: ArrayList<Comment> = ArrayList()
 )

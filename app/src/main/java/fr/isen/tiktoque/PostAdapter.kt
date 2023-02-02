@@ -1,6 +1,7 @@
 package fr.isen.tiktoque
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +11,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 import fr.isen.tiktoque.model.Comment
 import fr.isen.tiktoque.model.Post
+import java.io.File
 
 class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val owner: TextView? = view.findViewById(R.id.owner)
+    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val image: ImageView? = view.findViewById(R.id.postImage)
         private val title: TextView? = view.findViewById(R.id.postTitle)
         private val adresse: TextView? = view.findViewById(R.id.postAdresse)
@@ -35,11 +40,10 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
         private val createCommentButton: Button? = view.findViewById(R.id.createCommentButton)
 
         fun bind(elem: Post, uid: String) {
-            Firebase.database.getReference("users/${elem.posterId}/username").get().addOnSuccessListener {
-                owner?.text = it.getValue<String>()
-            }
-            if (elem.image != null) {
-                image?.setImageResource(elem.image.hashCode())
+            val storage = FirebaseStorage.getInstance().reference.child("images/${elem.image}")
+            val localFile = File.createTempFile("images", "jpg")
+            storage.getFile(localFile).addOnSuccessListener {
+                Picasso.get().load(localFile).into(image)
             }
             title?.text = elem.name
             adresse?.text = elem.adresse

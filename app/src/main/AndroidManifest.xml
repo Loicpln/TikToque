@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TikToque"
         tools:targetApi="31">
         <activity
-            android:name=".createPostActivity"
+            android:name=".CreatePostActivity"
             android:exported="false" />
         <activity
             android:name=".PreferenceActivity"
