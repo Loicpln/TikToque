@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".FeedActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+
     <Button
         android:id="@+id/editProfileButton"
         android:layout_width="50dp"
@@ -16,21 +26,29 @@
         android:insetBottom="0dp"
         android:shape="oval"
         android:text="EDIT"
+        android:textSize="7dp"
         app:cornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/postList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
+        tools:layout_editor_absoluteY="482dp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
 
-
-    <Button
+        <Button
         android:id="@+id/createPostButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -44,7 +62,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+        </LinearLayout>
 
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
