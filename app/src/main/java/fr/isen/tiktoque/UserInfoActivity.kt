@@ -20,6 +20,8 @@ class UserInfoActivity : AppCompatActivity() {
         binding = ActivityUserInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.saveUserInfo.setOnClickListener { saveUserInfo() }
+
+        auth = FirebaseAuth.getInstance()
     }
 
 
