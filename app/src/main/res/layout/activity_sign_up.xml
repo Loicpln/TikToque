@@ -7,18 +7,17 @@
     tools:context=".SignUpActivity">
 
     <TextView
-
+        android:id="@+id/signUpTitle"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
         android:text="@string/signup"
         android:textAlignment="center"
         android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/username"
@@ -30,7 +29,7 @@
         android:hint="Pseudo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/signUpTitle" />
 
     <EditText
         android:id="@+id/email"

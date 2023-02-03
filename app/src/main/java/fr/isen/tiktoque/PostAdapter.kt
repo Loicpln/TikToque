@@ -39,7 +39,7 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
         private val postComment: TextInputEditText? = view.findViewById(R.id.postComment)
         private val createCommentButton: Button? = view.findViewById(R.id.createCommentButton)
 
-        @SuppressLint("ClickableViewAccessibility")
+        @SuppressLint("ClickableViewAccessibility", "UseCompatLoadingForDrawables", "SetTextI18n")
         fun bind(elem: Post, uid: String) {
             val localFile = File.createTempFile("images", "jpg")
             FirebaseStorage.getInstance().reference.child("images/${elem.image}").getFile(localFile).addOnSuccessListener {
