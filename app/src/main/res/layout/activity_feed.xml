@@ -11,27 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end">
 
-    <Button
-        android:id="@+id/editProfileButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:shape="oval"
-        android:text="EDIT"
-        android:textSize="7dp"
-        app:cornerRadius="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -48,19 +28,50 @@
             android:layout_height="wrap_content"
             android:gravity="end">
 
-        <Button
-        android:id="@+id/createPostButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:shape="oval"
-        android:text="+"
-        app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageButton
+                android:id="@+id/createPostButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:background="@color/white"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:shape="oval"
+                android:src="@drawable/plus"
+                android:translationX="-110dp"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageButton
+                android:id="@+id/editProfileButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:background="@color/white"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:shape="oval"
+                android:src="@drawable/settings"
+                android:translationX="-320dp"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <ImageButton
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+
+                android:background="@color/white"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:shape="oval"
+                android:src="@drawable/logout"
+                app:cornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </LinearLayout>
 

@@ -57,6 +57,11 @@ class FeedActivity : AppCompatActivity() {
             val intent = Intent(this, UserInfoActivity::class.java)
             startActivity(intent)
         }
+        binding.logoutButton.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
