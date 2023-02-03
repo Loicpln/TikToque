@@ -20,39 +20,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="@string/email"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
         android:hint="@string/passwd"
+        android:inputType="textPassword"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toBottomOf="@id/email" />
+
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

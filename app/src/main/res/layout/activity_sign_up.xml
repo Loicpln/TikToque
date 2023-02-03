@@ -7,6 +7,7 @@
     tools:context=".SignUpActivity">
 
     <TextView
+
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/signup"
@@ -19,43 +20,43 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/username"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="PSEUDO"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Pseudo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="@string/email"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        app:layout_constraintVertical_bias="0.1"/>
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
         android:hint="@string/passwd"
+        android:inputType="textPassword"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.1" />
-
+        app:layout_constraintTop_toBottomOf="@+id/email"/>
 
 
 
@@ -69,5 +70,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintVertical_bias="0.1" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,38 +31,20 @@ class FeedActivity : AppCompatActivity() {
 
         Firebase.database.getReference("posts").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val posts = ArrayList<Post>()
-                snapshot.children.forEach {
-                    val post = Post(it.key!!,
-                        it.child("posterId").getValue<String>()!!,
-                        it.child("name").getValue<String>()!!,
-                        it.child("adresse").getValue<String>()!!,
-                        it.child("phone").getValue<String>()!!,
-                        it.child("content").getValue<String>()!!,
-                        it.child("type").getValue<String>()!!,
-                        it.child("date").getValue<Long>()!!,
-                        it.child("image").getValue<String>()!!,
-                        it.child("likes").let { like ->
-                            val likes = Like(like.child("count").getValue<Int>()!!)
-                            like.child("users").children.forEach { user ->
-                                likes.users.add(user.getValue<String>()!!)
-                            }
-                            likes
-                        },
-                        it.child("comments").let { comments ->
-                            val commentsList = ArrayList<Comment>()
-                            comments.children.forEach { comment ->
-                                commentsList.add(Comment(
-                                    comment.child("name").getValue<String>()!!,
-                                    comment.child("content").getValue<String>()!!))
-                            }
-                            commentsList
-                        }
-                    )
-                    posts.add(post)
+                val posts = snapshot.children.map {
+                    val post = it.getValue<Post>()
+                    post?.id = it.key.toString()
+                    if (post?.comments == null) {
+                        post?.comments = ArrayList()
+                    }
+                    if(post?.likes?.users == null) {
+                        post?.likes?.users = ArrayList()
+                    }
+                    return@map post ?: Post()
                 }
-                if (posts.size > 0) {
-                    binding.postList.adapter = PostAdapter(ArrayList(posts.reversed()), auth.currentUser?.uid!!)
+                val reverse = ArrayList(posts.reversed())
+                if (reverse.isNotEmpty()) {
+                    binding.postList.adapter = PostAdapter(reverse, auth.currentUser?.uid!!)
                 }
             }
 

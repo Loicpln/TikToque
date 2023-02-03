@@ -4,8 +4,8 @@ import android.media.Image
 import kotlin.collections.ArrayList
 
 data class Post(
-    var id: String? = "",
-    var posterId: String? = "",
+    var id: String = "",
+    var posterId: String = "",
     var name: String = "",
     var adresse: String = "",
     var phone: String = "",

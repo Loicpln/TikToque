@@ -73,23 +73,43 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
                 like?.background = like?.context?.getDrawable(R.drawable.favorite)
                 like?.setOnClickListener {
                     likeDb.child("count").setValue(elem.likes.count - 1)
-                    likeDb.child("users").child(uid).removeValue()
+                    Firebase.database.getReference("posts/${elem.id}/likes/users").get().addOnSuccessListener {
+                        val users = ArrayList<String>()
+                        it.children.forEach { child ->
+                            val e = child.getValue<String>()!!
+                            users.add(e)
+                        }
+                        users.remove(uid)
+                        likeDb.child("users").setValue(users)
+                    }
                 }
             }else {
                 like?.background = like?.context?.getDrawable(R.drawable.favorite_border)
                 like?.setOnClickListener {
                     likeDb.child("count").setValue(elem.likes.count + 1)
-                    likeDb.child("users").child(uid).setValue(uid)
+                    Firebase.database.getReference("posts/${elem.id}/likes/users").get().addOnSuccessListener {
+                        val users = ArrayList<String>()
+                        it.children.forEach { child ->
+                            val e = child.getValue<String>()!!
+                            users.add(e)
+                        }
+                        users.add(uid)
+                        likeDb.child("users").setValue(users)
+                    }
                 }
             }
 
             createCommentButton?.setOnClickListener {
                 if (postComment?.text.toString() != "") {
-                    Firebase.database.getReference("users/${uid}/username").get().addOnSuccessListener {
-                        it.getValue<String>()?.let { username ->
-                            val comment = Comment(username, postComment?.text.toString())
-                            Firebase.database.getReference("posts/${elem.id}/comments").push().setValue(comment)
+                    val comment = Comment(uid, postComment?.text.toString())
+                    Firebase.database.getReference("posts/${elem.id}/comments").get().addOnSuccessListener {
+                        val comments = ArrayList<Comment>()
+                        it.children.forEach { child ->
+                            val e = Comment(child.child("uid").getValue<String>()!!, child.child("content").getValue<String>()!!)
+                            comments.add(e)
                         }
+                        comments.add(comment)
+                        Firebase.database.getReference("posts/${elem.id}/comments").setValue(comments)
                     }
                 }
             }
