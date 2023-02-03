@@ -29,23 +29,18 @@ class FeedActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
+        Firebase.database.getReference("posts").get().addOnSuccessListener {
+            val posts = it.children.map {elem ->
+                val post = elem.getValue<Post>()
+                post?.id = elem.key.toString()
+                return@map post ?: Post()
+            }
+            binding.postList.adapter = PostAdapter(ArrayList(posts.reversed()), auth.currentUser?.uid!!)
+        }
+
         Firebase.database.getReference("posts").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val posts = snapshot.children.map {
-                    val post = it.getValue<Post>()
-                    post?.id = it.key.toString()
-                    if (post?.comments == null) {
-                        post?.comments = ArrayList()
-                    }
-                    if(post?.likes?.users == null) {
-                        post?.likes?.users = ArrayList()
-                    }
-                    return@map post ?: Post()
-                }
-                val reverse = ArrayList(posts.reversed())
-                if (reverse.isNotEmpty()) {
-                    binding.postList.adapter = PostAdapter(reverse, auth.currentUser?.uid!!)
-                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -62,6 +57,7 @@ class FeedActivity : AppCompatActivity() {
             val intent = Intent(this, UserInfoActivity::class.java)
             startActivity(intent)
         }
+
 
     }
 }
