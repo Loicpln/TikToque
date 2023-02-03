@@ -52,6 +52,7 @@ class FeedActivity : AppCompatActivity() {
 
             }
         })
+
         binding.createPostButton.setOnClickListener {
             val intent = Intent(this, CreatePostActivity::class.java)
             startActivity(intent)

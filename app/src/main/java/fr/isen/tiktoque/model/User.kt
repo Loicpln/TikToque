@@ -1,7 +1,8 @@
 package fr.isen.tiktoque.model
 
-import java.io.Serializable
-
 data class User(
-    var username: String
+    val userId: String?,
+    var username: String,
+    val age: String,
+    val phone: String
 )

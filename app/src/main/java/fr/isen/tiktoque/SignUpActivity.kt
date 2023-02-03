@@ -1,23 +1,15 @@
 package fr.isen.tiktoque
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telecom.Call
-import android.util.Log
 import android.widget.Toast
-import com.google.android.gms.common.api.Response
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.databinding.ActivitySignUpBinding
 import fr.isen.tiktoque.model.User
-import java.util.*
-import java.util.regex.Pattern
-import javax.security.auth.callback.Callback
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -53,7 +45,7 @@ class SignUpActivity : AppCompatActivity() {
     }
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            Firebase.database.getReference("users").child(user.uid).setValue(User(binding.username.text.toString()))
+            Firebase.database.getReference("users").child(user.uid).setValue(User(user.uid,binding.username.text.toString(),binding.email.text.toString(),binding.password.text.toString()))
             Snackbar.make(binding.root, "User created", Snackbar.LENGTH_SHORT).show()
         }
     }
