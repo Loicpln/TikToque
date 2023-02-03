@@ -8,6 +8,7 @@ android {
     namespace 'fr.isen.tiktoque'
     compileSdk 33
 
+
     defaultConfig {
         applicationId "fr.isen.tiktoque"
         minSdk 23
