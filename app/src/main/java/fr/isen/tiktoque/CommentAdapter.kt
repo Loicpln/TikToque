@@ -26,9 +26,13 @@ class CommentAdapter(private val comments: ArrayList<Comment>) : RecyclerView.Ad
             val localFile = File.createTempFile("images", "jpg")
             Firebase.database.getReference("users/${comment.uid}").get().addOnSuccessListener {
                 val user = it.getValue<User>()
-                name?.text = user?.username
-                FirebaseStorage.getInstance().reference.child("images/${user?.photo}").getFile(localFile).addOnSuccessListener {
-                    Picasso.get().load(localFile).into(image)
+                if(user != null) {
+                    name?.text = user.username
+                    if (user.photo != "") {
+                        FirebaseStorage.getInstance().reference.child("images/${user.photo}").getFile(localFile).addOnSuccessListener {
+                            Picasso.get().load(localFile).into(image)
+                        }
+                    }
                 }
             }
             content?.text = comment.content

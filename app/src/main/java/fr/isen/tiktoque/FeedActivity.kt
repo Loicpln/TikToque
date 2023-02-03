@@ -8,8 +8,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.childEvents
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.database.ktx.snapshots
 import com.google.firebase.ktx.Firebase
 import fr.isen.tiktoque.databinding.ActivityFeedBinding
 import fr.isen.tiktoque.model.Comment
@@ -29,18 +31,14 @@ class FeedActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
-        Firebase.database.getReference("posts").get().addOnSuccessListener {
-            val posts = it.children.map {elem ->
-                val post = elem.getValue<Post>()
-                post?.id = elem.key.toString()
-                return@map post ?: Post()
-            }
-            binding.postList.adapter = PostAdapter(ArrayList(posts.reversed()), auth.currentUser?.uid!!)
-        }
-
         Firebase.database.getReference("posts").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                val posts = snapshot.children.map { elem ->
+                    val post = elem.getValue<Post>()
+                    post?.id = elem.key.toString()
+                    return@map post ?: Post()
+                } as ArrayList<Post>
+                binding.postList.adapter = PostAdapter(posts, auth.currentUser?.uid ?: "")
             }
 
             override fun onCancelled(error: DatabaseError) {

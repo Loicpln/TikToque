@@ -126,4 +126,9 @@ class PostAdapter(private val posts: ArrayList<Post>, private val uid: String) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(posts[position], uid)
     }
+
+    fun addPost(post: Post) {
+        posts.add(post)
+        notifyItemInserted(posts.size - 1)
+    }
 }

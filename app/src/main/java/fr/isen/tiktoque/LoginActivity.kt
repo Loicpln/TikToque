@@ -36,18 +36,24 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signIn(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
-                    updateUI(user)
-                } else {
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Snackbar.make(binding.root, "Authentication failed.", Snackbar.LENGTH_SHORT).show()
-                    updateUI(null)
+        if(email.isNotEmpty() && password.isNotEmpty()) {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "signInWithEmail:success")
+                        val user = auth.currentUser
+                        updateUI(user)
+                    } else {
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Snackbar.make(binding.root, "Authentication failed.", Snackbar.LENGTH_SHORT)
+                            .show()
+                        updateUI(null)
+                    }
                 }
-            }
+        }else{
+            Snackbar.make(binding.root, "Please fill all the fields", Snackbar.LENGTH_SHORT).show()
+        }
+
     }
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {

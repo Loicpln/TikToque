@@ -20,7 +20,7 @@
 
     <LinearLayout
         android:id="@+id/user_info_form"
-        android:layout_width="380dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:orientation="vertical"
