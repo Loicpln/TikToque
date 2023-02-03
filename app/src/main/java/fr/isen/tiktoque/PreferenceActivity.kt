@@ -87,7 +87,6 @@ class PreferenceActivity : AppCompatActivity() {
         }
 
         binding.buttonSave.setOnClickListener {
-            /*saveToDatabase(selectedTypes)*/
             val intent = Intent(this@PreferenceActivity, FeedActivity::class.java)
             intent.putExtra("selectedTypes", selectedTypes.toTypedArray())
             startActivity(intent)

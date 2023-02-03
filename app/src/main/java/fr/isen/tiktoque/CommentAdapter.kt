@@ -30,7 +30,7 @@ class CommentAdapter(private val comments: ArrayList<Comment>) : RecyclerView.Ad
                     name?.text = user.username
                     if (user.photo != "") {
                         FirebaseStorage.getInstance().reference.child("images/${user.photo}").getFile(localFile).addOnSuccessListener {
-                            Picasso.get().load(localFile).into(image)
+                            Picasso.get().load(localFile).centerCrop().fit().into(image)
                         }
                     }
                 }
