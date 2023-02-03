@@ -25,31 +25,32 @@ class SignUpActivity : AppCompatActivity() {
 
 
         auth = FirebaseAuth.getInstance()
-        auth.addAuthStateListener {
-            updateUI(it.currentUser)
-        }
+
 
         binding.submitButton.setOnClickListener{
             signUp(binding.email.text.toString(), binding.password.text.toString())
-
         }
     }
 
     private fun signUp(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    updateUI(auth.currentUser)
-                } else {
-                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
-                }
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                updateUI(auth.currentUser)
+            } else {
+                Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
             }
+        }
     }
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            Firebase.database.getReference("users").child(user.uid).setValue(User(user.uid, binding.username.text.toString(), "","",""))
-            startActivity(Intent(this, FeedActivity::class.java))
-            Snackbar.make(binding.root, "User created", Snackbar.LENGTH_SHORT).show()
+            val username = binding.username.text.toString()
+            if (username.isNotEmpty() && binding.email.text.toString().isNotEmpty() && binding.password.text.toString().isNotEmpty()) {
+                Firebase.database.getReference("users").child(user.uid).setValue(User(user.uid, username, "","",""))
+                startActivity(Intent(this, FeedActivity::class.java))
+                Snackbar.make(binding.root, "User created", Snackbar.LENGTH_SHORT).show()
+            }else{
+                Snackbar.make(binding.root, "Please fill all the fields", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
