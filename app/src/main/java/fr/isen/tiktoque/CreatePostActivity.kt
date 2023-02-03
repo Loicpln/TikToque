@@ -79,8 +79,6 @@ class CreatePostActivity : AppCompatActivity() {
                         ArrayList()
                     )
                     myRef.child(postId).setValue(post)
-                    val userRef = database.getReference("users").child(userId!!)
-                    userRef.child("posts").child(postId).setValue(post)
                     Snackbar.make(binding.root, "Post publié", Snackbar.LENGTH_LONG).show()
                     finish()
                 } else {

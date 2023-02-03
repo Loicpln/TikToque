@@ -1,5 +1,6 @@
 package fr.isen.tiktoque
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -30,6 +31,7 @@ class SignUpActivity : AppCompatActivity() {
 
         binding.submitButton.setOnClickListener{
             signUp(binding.email.text.toString(), binding.password.text.toString())
+
         }
     }
 
@@ -45,7 +47,8 @@ class SignUpActivity : AppCompatActivity() {
     }
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            Firebase.database.getReference("users").child(user.uid).setValue(User(user.uid,binding.username.text.toString(),binding.email.text.toString(),binding.password.text.toString()))
+            Firebase.database.getReference("users").child(user.uid).setValue(User(user.uid, binding.username.text.toString(), "","",""))
+            startActivity(Intent(this, FeedActivity::class.java))
             Snackbar.make(binding.root, "User created", Snackbar.LENGTH_SHORT).show()
         }
     }

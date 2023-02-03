@@ -58,6 +58,10 @@ class FeedActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.editProfileButton.setOnClickListener {
+            val intent = Intent(this, UserInfoActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }
